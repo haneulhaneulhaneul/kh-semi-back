@@ -19,8 +19,8 @@ import com.kh.common.Common;
 import com.kh.dao.FreeBoardDAO;
 import com.kh.vo.FreeBoardVO;
 
-@WebServlet("/BoardListServlet")
-public class BoardListServlet extends HttpServlet {
+@WebServlet("/RecommendBoardListServlet")
+public class RecommendBoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
@@ -43,7 +43,7 @@ public class BoardListServlet extends HttpServlet {
 		
 		String reqCmd = (String)jsonObj.get("cmd");
 		PrintWriter out = response.getWriter();
-		if(!reqCmd.equals("FBoardList")) {
+		if(!reqCmd.equals("RecommendBoardList")) {
 			JSONObject resJson = new JSONObject();
 			resJson.put("result", "NOK");
 			out.print(resJson);
@@ -51,7 +51,7 @@ public class BoardListServlet extends HttpServlet {
 		} 
 		
 		FreeBoardDAO dao = new FreeBoardDAO();
-		List<FreeBoardVO> list = dao.boardRead();
+		List<FreeBoardVO> list = dao.recommendBoardRead();
 		
 		JSONArray boardArray = new JSONArray();
 		for (FreeBoardVO e : list) {
