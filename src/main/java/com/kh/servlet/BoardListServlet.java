@@ -19,8 +19,8 @@ import com.kh.common.Common;
 import com.kh.dao.FreeBoardDAO;
 import com.kh.vo.FreeBoardVO;
 
-@WebServlet("/BoardReadServlet")
-public class BoardReadServlet extends HttpServlet {
+@WebServlet("/BoardListServlet")
+public class BoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
@@ -54,15 +54,15 @@ public class BoardReadServlet extends HttpServlet {
 		List<FreeBoardVO> list = dao.BoardRead();
 		JSONArray boardArray = new JSONArray();
 		for (FreeBoardVO e : list) {
-			JSONObject boardlist = new JSONObject();
-			boardlist.put("fb_category", e.getFb_category());
-			boardlist.put("fb_user_id", e.getFb_user_id());
-			boardlist.put("fb_title", e.getFb_title());
+			JSONObject fBoardlist = new JSONObject();
+			fBoardlist.put("fb_category", e.getFb_category());
+			fBoardlist.put("fb_user_id", e.getFb_user_id());
+			fBoardlist.put("fb_title", e.getFb_title());
 			DateFormat dateFormat = new SimpleDateFormat("YYYY/MM/dd HH:mm:ss");
 			String dateToStr1 = dateFormat.format(e.getFb_c_date());
-			boardlist.put("fb_c_date", dateToStr1);
-			boardlist.put("fb_hit", e.getFb_hit());
-			boardArray.add(boardlist);
+			fBoardlist.put("fb_c_date", dateToStr1);
+			fBoardlist.put("fb_hit", e.getFb_hit());
+			boardArray.add(fBoardlist);
 		}
 		System.out.println(boardArray);
 		out.print(boardArray);

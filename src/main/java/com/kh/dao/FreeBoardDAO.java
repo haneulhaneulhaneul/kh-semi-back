@@ -57,7 +57,36 @@ public class FreeBoardDAO {
 			e.printStackTrace();
 		}
 		
-		
 		return list;
 	}
+	
+	public boolean BoardWrite(String fb_category, String fb_user_id, String fb_title, String fb_content) {
+		int result = 0;
+		String sql = "INSERT INTO FREE_BOARD(FB_ID, FB_CATEGORY, FB_USER_ID, FB_TITLE, FB_CONTENT, FB_C_DATE, FB_U_DATE, FB_RECOMMEND, FB_HIT)"
+				+ " VALUES(FB_ID_SEQ.NEXTVAL, ?, ?, ?, ?, SYSDATE, NULL, DEFAULT, DEFAULT)";
+		try {
+			conn = Common.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, fb_category);
+			pstmt.setString(2, fb_user_id);
+			pstmt.setString(3, fb_title);
+			pstmt.setString(4, fb_content);
+			result = pstmt.executeUpdate();	
+			System.out.println("글 등록 결과 확인 : " + result);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Common.close(pstmt);
+		Common.close(conn);
+		
+		if(result == 1) return true;
+		else return false;
+	}
+
+	public boolean BoardWrite(String getFb_category, String getFb_title, String getFb_content) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
 }
