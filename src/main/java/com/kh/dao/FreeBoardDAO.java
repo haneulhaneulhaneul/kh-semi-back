@@ -233,7 +233,49 @@ public class FreeBoardDAO {
 	      return list;
 	   }
 	
-	
+	// 게시판 상세페이지 조회
+	public List<FreeBoardVO> boardDetail(int getFb_id) {
+		List<FreeBoardVO> list = new ArrayList<>();
+		try {
+			conn = Common.getConnection();
+			stmt = conn.createStatement();
+			String sql = "SELECT * FROM FREE_BOARD WHERE FB_ID = " + getFb_id;
+			
+			rs = stmt.executeQuery(sql);
+			
+			while(rs.next()) {
+				int fb_id = rs.getInt("FB_ID");
+	            String fb_category = rs.getString("FB_CATEGORY");
+	            String fb_user_id = rs.getString("FB_USER_ID");
+	            String fb_title = rs.getString("FB_TITLE");
+	            String fb_content = rs.getString("FB_CONTENT");
+	            Date fb_c_date = rs.getDate("FB_C_DATE");
+	            Date fb_u_date = rs.getDate("FB_U_DATE");
+	            int fb_recommend = rs.getInt("FB_RECOMMEND");
+	            int fb_hit = rs.getInt("FB_HIT");
+				
+				FreeBoardVO vo = new FreeBoardVO();
+				vo.setFb_id(fb_id);
+	            vo.setFb_category(fb_category);
+	            vo.setFb_user_id(fb_user_id);
+	            vo.setFb_title(fb_title);
+	            vo.setFb_content(fb_content);
+	            vo.setFb_c_date(fb_c_date);
+	            vo.setFb_u_date(fb_u_date);
+	            vo.setFb_recommend(fb_recommend);
+	            vo.setFb_hit(fb_hit);
+	            list.add(vo);
+			}
+			Common.close(rs);
+			Common.close(stmt);
+			Common.close(conn);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
 	// 게시판 글 작성
 	public boolean boardWrite(String fb_category, String fb_user_id, String fb_title, String fb_content) {
 		int result = 0;
@@ -259,85 +301,6 @@ public class FreeBoardDAO {
 		else return false;
 	}
 	
-	// 글 상세 조회
-//	public boolean boardDetail(int fb_id) {
-//		boolean isDetailBoard = false;
-//		try {
-//			conn = Common.getConnection();
-//			stmt = conn.createStatement(); // Statement 객체 얻기
-//			String sql = "SELECT * FROM FREE_BOARD WHERE FB_ID = " + "'" + fb_id + "'";
-//			rs = stmt.executeQuery(sql);
-//			
-//			while(rs.next()) { // 읽은 데이타가 있으면 true
-////			int sqlFb_id = rs.getInt("FB_ID"); // 쿼리문 수행 결과에서 ID값을 가져 옴
-//				String sqlFb_category = rs.getString("FB_CATEGORY");
-//				String sqlFb_user_id = rs.getString("FB_USER_ID");
-//				String sqlFb_title = rs.getString("FB_TITLE");
-//				String sqlFb_content = rs.getString("FB_CONTENT");
-//				Date sqlfb_c_date = rs.getDate("FB_C_DATE");
-//				int sqlFb_hit = rs.getInt("FB_HIT");
-//				
-//				System.out.println("FB_CATEGORY : " + sqlFb_category);
-//				System.out.println("FB_USER_ID : " + sqlFb_user_id);
-//				System.out.println("FB_TITLE" + sqlFb_title);
-//				System.out.println("FB_CONTENT : " + sqlFb_content);
-//				System.out.println("FB_C_DATE : " + sqlfb_c_date);
-//				System.out.println("FB_HIT : " + sqlFb_hit);
-//				
-//				if("FB_USER_ID".equals(sqlFb_user_id)) {
-//					isDetailBoard = true;
-//				}
-//			}
-//			Common.close(rs);
-//			Common.close(stmt);
-//			Common.close(conn);
-//		} catch(Exception e) {
-//			e.printStackTrace();
-//		}
-//		return isDetailBoard;
-//	}
-	
-//	public List<FreeBoardVO> boardDetail(int fb_id) {
-//	      List<FreeBoardVO> list = new ArrayList<>();
-//	      try {
-//	         conn = Common.getConnection();
-//	         stmt = conn.createStatement();
-//	         String sql = "SELECT * FROM FREE_BOARD WHERE FB_ID = " + "'" + fb_id + "'";
-//	         rs = stmt.executeQuery(sql);
-//	         
-//	         while(rs.next()) {
-//	            int fb_id = rs.getInt("FB_ID");
-//	            String fb_category = rs.getString("FB_CATEGORY");
-//	            String fb_user_id = rs.getString("FB_USER_ID");
-//	            String fb_title = rs.getString("FB_TITLE");
-//	            String fb_content = rs.getString("FB_CONTENT");
-//	            Date fb_c_date = rs.getDate("FB_C_DATE");
-//	            Date fb_u_date = rs.getDate("FB_U_DATE");
-//	            int fb_recommend = rs.getInt("FB_RECOMMEND");
-//	            int fb_hit = rs.getInt("FB_HIT");
-//	            
-//	            FreeBoardVO vo = new FreeBoardVO();
-//	            vo.setFb_id(fb_id);
-//	            vo.setFb_category(fb_category);
-//	            vo.setFb_user_id(fb_user_id);
-//	            vo.setFb_title(fb_title);
-//	            vo.setFb_content(fb_content);
-//	            vo.setFb_c_date(fb_c_date);
-//	            vo.setFb_u_date(fb_u_date);
-//	            vo.setFb_recommend(fb_recommend);
-//	            vo.setFb_hit(fb_hit);
-//	            list.add(vo);
-//	            
-//	         }
-//	         Common.close(rs);
-//	         Common.close(stmt);
-//	         Common.close(conn);
-//	      } catch (Exception e) {
-//	         e.printStackTrace();
-//	      }
-//	      
-//	      return list;
-//	   }
 	
 	
 }

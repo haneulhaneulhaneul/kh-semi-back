@@ -56,6 +56,7 @@ public class RecommendBoardListServlet extends HttpServlet {
 		JSONArray boardArray = new JSONArray();
 		for (FreeBoardVO e : list) {
 			JSONObject fBoardlist = new JSONObject();
+			fBoardlist.put("fb_id", e.getFb_id());
 			fBoardlist.put("fb_category", e.getFb_category());
 			fBoardlist.put("fb_user_id", e.getFb_user_id());
 			fBoardlist.put("fb_title", e.getFb_title());
